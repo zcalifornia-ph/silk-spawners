@@ -22,9 +22,9 @@
   <p align="center">
     <strong>A Minecraft Java Edition datapack scaffold for Silk Touch spawner pickup and replacement.</strong>
     <br />
-    Version: v0.0.2
+    Version: v0.0.3
     <br />
-    Status: Load-hook scaffold
+    Status: Pickup loot path added
     <br />
     <a href="https://github.com/zcalifornia-ph/silk-spawners"><strong>Explore the repository »</strong></a>
     <br />
@@ -60,7 +60,7 @@
 
 Silk Spawners is a Minecraft Java Edition datapack project for a single, focused mechanic: monster spawners should become collectible with the Silk Touch enchantment and remember the mob they were configured to spawn when placed back into the world.
 
-The v0.0.2 baseline is a datapack scaffold, not a playable gameplay release yet. It contains the repository documentation, license and attribution files, branded project image, Minecraft Java Edition 26.1.2 datapack metadata, and a minimal load hook that can be used to confirm the pack is wired into `/reload`. Gameplay loot tables, predicates, placement behavior, and validation worlds are planned for follow-up implementation releases.
+The v0.0.3 baseline adds the first gameplay-facing datapack slice: a Silk Touch-gated spawner loot table for Minecraft Java Edition 26.1.2. It can mark dropped spawner items with Silk Spawners-owned custom data and a "Monster Spawner" display name, while placement restoration is still planned for a later implementation release.
 
 The intended implementation is vanilla datapack-only: no mods, no server plugins, and no resource pack requirement.
 
@@ -71,11 +71,12 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 - Third-party and trademark notices for the related public gameplay concept and Minecraft marks.
 - Branded project screenshot asset at `repo/images/project_screen.png`.
 - Minimal `silk-spawners/pack.mcmeta` metadata and load hook for a Minecraft Java Edition 26.1.2 datapack scaffold.
-- No playable Silk Touch spawner behavior is included in v0.0.2.
+- `silk-spawners/data/minecraft/loot_table/blocks/spawner.json` overrides the vanilla spawner block loot table for Silk Touch pickup.
+- No placed-spawner restoration behavior is included in v0.0.3.
 
 ### Planned Features
 
-- Pick up any monster spawner with a Silk Touch tool and keep its mob type.
+- Pick up any monster spawner with a Silk Touch tool and keep its mob type. Initial loot-table support is present in v0.0.3; manual runtime validation is still pending.
 - Place the picked-up spawner anywhere and it restores the original mob.
 - Dropped spawner items are auto-renamed to "Monster Spawner" with consistent default spawn parameters (4-block range, 6 max nearby entities, 16-block player range).
 - Pure vanilla datapack. No mods, plugins, or resource pack required.
@@ -83,10 +84,9 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 
 ### Planned Implementation
 
-- A custom loot table overrides the default spawner drop, gated on the `minecraft:silk_touch` enchantment predicate. When that condition fires, the dropped spawner item carries the original mob's entity ID in its custom data.
-- A tick function scans a 9x9x11 region around any player who just used a spawner (tracked via the `minecraft.used:minecraft.spawner` statistic) and detects freshly placed empty spawners.
-- When an empty spawner is found, a block function rewrites its `SpawnData.entity` field from the item's stored custom data, restoring the original mob.
-- Default spawn parameters are applied so picked-up spawners behave consistently regardless of source.
+- The current custom loot table overrides the default spawner drop, gated on the `minecraft:silk_touch` enchantment predicate. When that condition fires, the dropped spawner item carries the original mob's entity ID in Silk Spawners custom data.
+- Future placement work will restore the original mob type when a marked spawner item is placed.
+- Default spawn parameters will be applied later so picked-up spawners behave consistently regardless of source.
 
 ### What Silk Spawners Is Not
 
@@ -114,7 +114,7 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 
 ### Installation
 
-v0.0.2 is for repository inspection and datapack wiring checks, not gameplay use. The datapack metadata and load hook can be loaded by Minecraft, but the Silk Touch spawner mechanic is not implemented yet.
+v0.0.3 is for repository inspection and pickup-path testing, not full gameplay use. The datapack metadata, load hook, and Silk Touch spawner loot table can be loaded by Minecraft, but placed-spawner restoration is not implemented yet.
 
 1. Clone the repository.
 
@@ -143,7 +143,15 @@ v0.0.2 is for repository inspection and datapack wiring checks, not gameplay use
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-There is no gameplay usage in v0.0.2. Planned usage after implementation:
+Current partial usage in v0.0.3:
+
+1. Load the datapack into a Minecraft Java Edition 26.1.2 test world.
+2. Run `/reload`.
+3. Seed a `minecraft:spawner` block with `SpawnData.entity.id`.
+4. Break it with a Silk Touch tool.
+5. Inspect the dropped item components to confirm the Silk Spawners custom data and "Monster Spawner" name.
+
+Planned usage after placement restoration is implemented:
 
 1. Enchant a pickaxe with Silk Touch.
 2. Break a monster spawner with the enchanted pickaxe.
@@ -157,6 +165,7 @@ There is no gameplay usage in v0.0.2. Planned usage after implementation:
 
 - [x] v0.0.1 - Initial public repository scaffold, governance docs, project image, and datapack metadata.
 - [x] v0.0.2 - Minecraft Java Edition 26.1.2 datapack metadata and load-hook scaffold.
+- [x] v0.0.3 - Silk Touch-gated spawner pickup loot table with custom data marker and item naming.
 - [ ] v0.1.0 - First playable datapack implementation for Silk Touch spawner pickup and replacement.
 
 See the [open issues](https://github.com/zcalifornia-ph/silk-spawners/issues) for proposed features and known gaps.

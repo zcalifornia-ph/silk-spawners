@@ -1,6 +1,20 @@
 # Changelog
 
-Status: datapack scaffold with load-hook wiring. Gameplay implementation is not included yet.
+Status: pickup loot path added; placed-spawner restoration is not included yet.
+
+## v0.0.3
+
+### Added or Changed
+
+- Added the `minecraft:blocks/spawner` loot-table override for Silk Touch-gated spawner pickup.
+- Added item custom data output that records the source spawner mob id under the Silk Spawners namespace.
+- Added the dropped item display name "Monster Spawner" with white, non-italic formatting.
+- Updated `README.md` from `v0.0.2` to `v0.0.3` and documented the current pickup-path behavior plus the remaining placement-restoration gap.
+- Added `docs/version-0-0-3-docs.md` with release detail, validation notes, and follow-up runtime checks.
+
+### For Deletion
+
+- None from this task context.
 
 ## v0.0.2
 
