@@ -22,9 +22,9 @@
   <p align="center">
     <strong>A Minecraft Java Edition datapack scaffold for Silk Touch spawner pickup and replacement.</strong>
     <br />
-    Version: v0.0.1
+    Version: v0.0.2
     <br />
-    Status: Initial scaffold
+    Status: Load-hook scaffold
     <br />
     <a href="https://github.com/zcalifornia-ph/silk-spawners"><strong>Explore the repository »</strong></a>
     <br />
@@ -60,7 +60,7 @@
 
 Silk Spawners is a Minecraft Java Edition datapack project for a single, focused mechanic: monster spawners should become collectible with the Silk Touch enchantment and remember the mob they were configured to spawn when placed back into the world.
 
-The v0.0.1 baseline is an initial public scaffold, not a playable datapack release. It contains the repository documentation, license and attribution files, branded project image, and minimal datapack metadata. Gameplay functions, loot tables, predicates, and validation worlds are planned for a follow-up implementation release.
+The v0.0.2 baseline is a datapack scaffold, not a playable gameplay release yet. It contains the repository documentation, license and attribution files, branded project image, Minecraft Java Edition 26.1.2 datapack metadata, and a minimal load hook that can be used to confirm the pack is wired into `/reload`. Gameplay loot tables, predicates, placement behavior, and validation worlds are planned for follow-up implementation releases.
 
 The intended implementation is vanilla datapack-only: no mods, no server plugins, and no resource pack requirement.
 
@@ -70,8 +70,8 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 - MIT license text for this repository's original work.
 - Third-party and trademark notices for the related public gameplay concept and Minecraft marks.
 - Branded project screenshot asset at `repo/images/project_screen.png`.
-- Minimal `silk-spawners/pack.mcmeta` metadata for a Minecraft Java Edition 1.21.10-era datapack scaffold.
-- No playable Silk Touch spawner behavior is included in v0.0.1.
+- Minimal `silk-spawners/pack.mcmeta` metadata and load hook for a Minecraft Java Edition 26.1.2 datapack scaffold.
+- No playable Silk Touch spawner behavior is included in v0.0.2.
 
 ### Planned Features
 
@@ -97,9 +97,10 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 
 ### Target Stack
 
-- Minecraft Java Edition datapack metadata (data pack version 88.0 / pack format 88)
+- Minecraft Java Edition datapack metadata (data pack format 101.1)
 - Vanilla `.mcfunction` scripting for the planned gameplay logic
 - Custom loot tables and predicates for the planned Silk Touch drop behavior
+- Namespace map: `silk_spawners` owns pack behavior; `minecraft` is used only for vanilla integration tags and the planned `minecraft:blocks/spawner` loot-table override.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -113,7 +114,7 @@ The intended implementation is vanilla datapack-only: no mods, no server plugins
 
 ### Installation
 
-v0.0.1 is for repository inspection and development setup, not gameplay installation. The datapack metadata can be loaded by Minecraft, but there are no gameplay functions yet.
+v0.0.2 is for repository inspection and datapack wiring checks, not gameplay use. The datapack metadata and load hook can be loaded by Minecraft, but the Silk Touch spawner mechanic is not implemented yet.
 
 1. Clone the repository.
 
@@ -135,12 +136,14 @@ v0.0.1 is for repository inspection and development setup, not gameplay installa
    /datapack list
    ```
 
+6. For the current scaffold, `/reload` is expected to run the load hook and print a short Silk Spawners probe message.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-There is no gameplay usage in v0.0.1. Planned usage after implementation:
+There is no gameplay usage in v0.0.2. Planned usage after implementation:
 
 1. Enchant a pickaxe with Silk Touch.
 2. Break a monster spawner with the enchanted pickaxe.
@@ -153,6 +156,7 @@ There is no gameplay usage in v0.0.1. Planned usage after implementation:
 ## Roadmap
 
 - [x] v0.0.1 - Initial public repository scaffold, governance docs, project image, and datapack metadata.
+- [x] v0.0.2 - Minecraft Java Edition 26.1.2 datapack metadata and load-hook scaffold.
 - [ ] v0.1.0 - First playable datapack implementation for Silk Touch spawner pickup and replacement.
 
 See the [open issues](https://github.com/zcalifornia-ph/silk-spawners/issues) for proposed features and known gaps.
